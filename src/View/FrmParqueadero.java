@@ -16,6 +16,9 @@ import javax.swing.JOptionPane;
  */
 public class FrmParqueadero extends javax.swing.JFrame {
 
+    //hola esto es un parrafo 
+    
+    
     public static DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyy hh:mm:ss a");
 
     public FrmParqueadero() {
