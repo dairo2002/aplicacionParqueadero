@@ -5,8 +5,8 @@
 package View;
 
 import Controller.controllerParqueadero;
-import Model.modelParqueadero;
-import Model.modelVehiculo;
+import Model.Parqueadero;
+import Model.Vehiculo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class FrmListaHistorial extends javax.swing.JFrame {
     public void cargarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) tblHistorialVehiculo.getModel();
         controllerParqueadero vehi = new controllerParqueadero();
-        ArrayList<modelVehiculo> listHistorial = vehi.lista(); 
+        ArrayList<Vehiculo> listHistorial = vehi.lista(); 
         for (int i = 0; i < listHistorial.size(); i++) {
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyy hh:mm:ss a");
             String[] datosVehi = {

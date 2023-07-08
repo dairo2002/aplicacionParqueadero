@@ -5,8 +5,8 @@
 package View;
 
 import Controller.controllerParqueadero;
-import Model.modelParqueadero;
-import Model.modelVehiculo;
+import Model.Parqueadero;
+import Model.Vehiculo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class FrmListaVehiculo extends javax.swing.JFrame {
     public void cargarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) tblListaVehiculos.getModel();
         controllerParqueadero par = new controllerParqueadero();
-        ArrayList<modelVehiculo> listaVehi = par.lista();
+        ArrayList<Vehiculo> listaVehi = par.lista();
         for (int i = 0; i < listaVehi.size(); i++) {
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyy hh:mm a");
             String[] datosVehi = {

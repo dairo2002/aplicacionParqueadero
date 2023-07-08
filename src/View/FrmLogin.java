@@ -6,7 +6,7 @@ package View;
 
 import Controller.controllerParqueadero;
 import Controller.controllerUsuario;
-import Model.modelParqueadero;
+import Model.Parqueadero;
 import javax.swing.JOptionPane;
 
 /**

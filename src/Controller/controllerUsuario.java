@@ -4,11 +4,11 @@
  */
 package Controller;
 
-import Model.modelUserParqueadero;
+import Model.Login;
 
 public class controllerUsuario {
     
     public boolean login(String usuario, String contrasena) {
-        return modelUserParqueadero.login(usuario, contrasena);
+        return Login.login(usuario, contrasena);
     }
 }

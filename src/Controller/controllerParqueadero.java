@@ -4,8 +4,8 @@
  */
 package Controller;
 
-import Model.modelParqueadero;
-import Model.modelVehiculo;
+import Model.Parqueadero;
+import Model.Vehiculo;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -16,22 +16,26 @@ import java.util.ArrayList;
 public class controllerParqueadero {
     
     public boolean registroVehiculo(String tipoVehiculo, String placa, LocalDateTime entradaFechaHora){
-        return modelParqueadero.registroVehiculo(tipoVehiculo, placa, entradaFechaHora);
+        return Parqueadero.registroVehiculo(tipoVehiculo, placa, entradaFechaHora);
     } 
     
     public boolean retirarVehiculo(String tipoVehiculo, String placa, LocalDateTime salidaFechaHora){
-        return modelParqueadero.registroVehiculo(tipoVehiculo, placa, salidaFechaHora);
+        return Parqueadero.registroVehiculo(tipoVehiculo, placa, salidaFechaHora);
     }
     
-    public modelVehiculo consultarSalida(String tipoVehiculo, String placa) {
-        return modelParqueadero.consultarSalida(tipoVehiculo, placa);
+    public Vehiculo consultarSalida(String placa) {
+        return Parqueadero.consultarSalida(placa);
     }
+    
+//    public Vehiculo consultarSalida(String tipoVehiculo, String placa) {
+//        return Parqueadero.consultarSalida(tipoVehiculo, placa);
+//    }
     
     public double calcularSalida(String tipoVehiculo, LocalDateTime entradaFechaHora, LocalDateTime salidaFechaHora){
-        return modelParqueadero.calcularSalida(tipoVehiculo, entradaFechaHora, salidaFechaHora);
+        return Parqueadero.calcularSalida(tipoVehiculo, entradaFechaHora, salidaFechaHora);
     }
     
     public ArrayList lista(){
-        return modelParqueadero.lista();
+        return Parqueadero.lista();
     }
 }
