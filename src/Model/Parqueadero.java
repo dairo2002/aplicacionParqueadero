@@ -44,9 +44,9 @@ public class Parqueadero {
 //        }
 //        return null;
 //    }
-    
     public static Vehiculo consultarSalida(String placa) {
         for (Vehiculo vehiculo : listaV) {
+            //Validamos si cualquier placa de un vehiculo existe 
             if (vehiculo.getPlaca().equals(placa)) {
                 vehiculo.setSalidaFechaHora(LocalDateTime.now());
                 return vehiculo;
@@ -55,7 +55,7 @@ public class Parqueadero {
         return null;
     }
 
-    public static double calcularSalida(String tipoVehiculo, LocalDateTime entradaFechaHora, LocalDateTime salidaFechaHora) {
+    public static double calcularSalida(LocalDateTime entradaFechaHora, LocalDateTime salidaFechaHora) {
         //Corregir que solo se pueda escoger el vehiculo correcto y retirar que con su costo
         //Segun el vehiculo que seleccione se debe pagar 
         //Si registro carro, solo puedo sacar el carro

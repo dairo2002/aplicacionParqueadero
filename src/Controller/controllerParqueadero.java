@@ -31,8 +31,8 @@ public class controllerParqueadero {
 //        return Parqueadero.consultarSalida(tipoVehiculo, placa);
 //    }
     
-    public double calcularSalida(String tipoVehiculo, LocalDateTime entradaFechaHora, LocalDateTime salidaFechaHora){
-        return Parqueadero.calcularSalida(tipoVehiculo, entradaFechaHora, salidaFechaHora);
+    public double calcularSalida(LocalDateTime entradaFechaHora, LocalDateTime salidaFechaHora){
+        return Parqueadero.calcularSalida(entradaFechaHora, salidaFechaHora);
     }
     
     public ArrayList lista(){
