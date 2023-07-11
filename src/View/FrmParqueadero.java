@@ -5,8 +5,10 @@
 package View;
 
 import Controller.controllerParqueadero;
+import Model.Vehiculo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,15 +20,19 @@ import javax.swing.JOptionPane;
  */
 public class FrmParqueadero extends javax.swing.JFrame {
 
-    public static DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyy hh:mm:ss a");
+    public LocalDateTime dateTime;
+    public DateTimeFormatter formato;
+    public controllerParqueadero parqueo;
 
     public FrmParqueadero() {
         initComponents();
         setLocationRelativeTo(this);
+        parqueo = new controllerParqueadero();
+        runnableDate();
         btnRegistrar.setEnabled(false);
-        txtPlaca.setEnabled(false);
-        //txtRetirarVehiculo para realizar la consultar y retirarlo se activa con se seleccione el Jcombobox
-        //txtRetirarVehiculo.setEnabled(false);
+    }
+
+    private void runnableDate() {
         Runnable runn = new Runnable() {
             public void run() {
                 //While: creamos un ciclo infinito
@@ -34,7 +40,10 @@ public class FrmParqueadero extends javax.swing.JFrame {
                     try {
                         // En él, hacemos que el hilo duerma (1000 milis equivale a un segundo) cada segundo se ejecuta
                         Thread.sleep(1000);
-                        cargarFecha();
+                        dateTime = LocalDateTime.now();
+                        formato = DateTimeFormatter.ofPattern("dd-MMMM-yyyy hh:mm:ss a");
+                        //Cargamos el formato de la fecha, para que se ejecute en el hilo
+                        txtEntradaFechaHora.setText(dateTime.format(formato));
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
 
@@ -45,12 +54,6 @@ public class FrmParqueadero extends javax.swing.JFrame {
         };
         Thread hilo = new Thread(runn);
         hilo.start();
-    }
-
-    public void cargarFecha() {
-        LocalDateTime fecha = LocalDateTime.now();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyy hh:mm:ss a");
-        txtEntradaFechaHora.setText(fecha.format(format));
     }
 
     @SuppressWarnings("unchecked")
@@ -232,24 +235,23 @@ public class FrmParqueadero extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(103, 103, 103)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(txtEntradaFechaHora, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cboTipoVehiculo, 0, 230, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtPlaca, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(cboTipoVehiculo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                    .addComponent(txtPlaca, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -264,38 +266,31 @@ public class FrmParqueadero extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addGap(16, 16, 16)))
                 .addGap(64, 64, 64))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(152, 152, 152)
-                                .addComponent(btnConsultarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(106, 106, 106)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(txtRetirarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(80, 80, 80)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnListaVehiculo)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(btnHistorialVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 22, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(226, 226, 226))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(125, 125, 125)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(txtRetirarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConsultarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(172, 172, 172)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnListaVehiculo, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                    .addComponent(btnHistorialVehiculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addGap(35, 35, 35)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -317,23 +312,23 @@ public class FrmParqueadero extends javax.swing.JFrame {
                         .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtEntradaFechaHora, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRetirarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnListaVehiculo))
+                    .addComponent(txtRetirarVehiculo, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                    .addComponent(btnListaVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnConsultarVehiculo)
-                    .addComponent(btnHistorialVehiculo))
-                .addGap(14, 14, 14))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnConsultarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHistorialVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -344,7 +339,9 @@ public class FrmParqueadero extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -384,12 +381,12 @@ public class FrmParqueadero extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         if (!txtPlaca.getText().isEmpty()) {
-            controllerParqueadero parqueadero = new controllerParqueadero();
-            boolean resultado = parqueadero.registroVehiculo(String.valueOf(cboTipoVehiculo.getSelectedItem()), txtPlaca.getText(), LocalDateTime.parse(txtEntradaFechaHora.getText(), formato));
+            boolean resultado = parqueo.registroVehiculo(String.valueOf(cboTipoVehiculo.getSelectedItem()), txtPlaca.getText(), LocalDateTime.parse(txtEntradaFechaHora.getText(), formato));
             if (resultado) {
                 JOptionPane.showMessageDialog(null, "Vehiculo registrado con exito!");
                 cboTipoVehiculo.setSelectedIndex(0);
                 txtPlaca.setText("");
+                txtRetirarVehiculo.setText("");
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo registrar el vehiculo");
             }
@@ -410,15 +407,13 @@ public class FrmParqueadero extends javax.swing.JFrame {
 
     private void btnConsultarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarVehiculoActionPerformed
         if (!txtRetirarVehiculo.getText().isEmpty()) {
-            controllerParqueadero vehi = new controllerParqueadero();
-            LocalDateTime salida = LocalDateTime.now();
+            Vehiculo v = null;
             //Consultamos el vehiculo si existe, sale del parqueadero con su valor a pagar $$$
-            //var resultado = vehi.consultarSalida(String.valueOf(cboTipoVehiculo.getSelectedItem()), txtRetirarVehiculo.getText());
-            var resultado = vehi.consultarSalida(txtRetirarVehiculo.getText());
+            var resultado = parqueo.consultarSalida(txtRetirarVehiculo.getText());
             if (resultado != null) {
-                double pago = vehi.calcularSalida(LocalDateTime.parse(txtEntradaFechaHora.getText(), formato), salida);
+                double pago = parqueo.calcularSalida(LocalDateTime.parse(txtEntradaFechaHora.getText(), formato), dateTime);
+                // double pago = vehi.Salida(LocalDateTime.parse(txtEntradaFechaHora.getText(), formato), salida, v.getPrecio());
                 JOptionPane.showMessageDialog(null, "El costo del parqueadero es $" + pago);
-                txtRetirarVehiculo.setText("");
             } else {
                 JOptionPane.showMessageDialog(null, "NO salio");
             }
@@ -445,6 +440,8 @@ public class FrmParqueadero extends javax.swing.JFrame {
         if (Character.isLowerCase(key)) {
             evt.setKeyChar(Character.toUpperCase(key));
         }
+
+
 
         //Validacion si la seleccion del tipo vehiculo es igual a "moto"
         if (cboTipoVehiculo.getSelectedItem().equals("Moto")) {

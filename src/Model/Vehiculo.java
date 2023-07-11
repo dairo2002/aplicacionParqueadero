@@ -61,5 +61,10 @@ public class Vehiculo {
     public void setSalidaFechaHora(LocalDateTime salidaFechaHora) {
         this.salidaFechaHora = salidaFechaHora;
     }
+    
 
+
+
+
+    
 }

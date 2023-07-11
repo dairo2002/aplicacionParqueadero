@@ -17,25 +17,23 @@ public class controllerParqueadero {
     
     public boolean registroVehiculo(String tipoVehiculo, String placa, LocalDateTime entradaFechaHora){
         return Parqueadero.registroVehiculo(tipoVehiculo, placa, entradaFechaHora);
-    } 
-    
-    public boolean retirarVehiculo(String tipoVehiculo, String placa, LocalDateTime salidaFechaHora){
-        return Parqueadero.registroVehiculo(tipoVehiculo, placa, salidaFechaHora);
     }
     
     public Vehiculo consultarSalida(String placa) {
         return Parqueadero.consultarSalida(placa);
     }
     
-//    public Vehiculo consultarSalida(String tipoVehiculo, String placa) {
-//        return Parqueadero.consultarSalida(tipoVehiculo, placa);
-//    }
-    
     public double calcularSalida(LocalDateTime entradaFechaHora, LocalDateTime salidaFechaHora){
         return Parqueadero.calcularSalida(entradaFechaHora, salidaFechaHora);
     }
     
+    //Prueba
+    public double Salida(LocalDateTime entradaFechaHora, LocalDateTime salidaFechaHora, long precio){
+        return Parqueadero.Salida(entradaFechaHora, salidaFechaHora, precio);
+    }
+    
     public ArrayList lista(){
-        return Parqueadero.lista();
+        Parqueadero p =new Parqueadero();
+        return p.lista();
     }
 }

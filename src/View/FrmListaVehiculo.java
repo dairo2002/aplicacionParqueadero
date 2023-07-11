@@ -33,12 +33,7 @@ public class FrmListaVehiculo extends javax.swing.JFrame {
         ArrayList<Vehiculo> listaVehi = par.lista();
         for (int i = 0; i < listaVehi.size(); i++) {
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyy hh:mm a");
-            String[] datosVehi = {
-                listaVehi.get(i).getTipoVehiculo(),
-                listaVehi.get(i).getPlaca(),
-                listaVehi.get(i).getEntradaFechaHora().format(formato)
-            };
-            modelo.addRow(datosVehi);
+            modelo.addRow(new Object[]{listaVehi.get(i).getTipoVehiculo(), listaVehi.get(i).getPlaca(), listaVehi.get(i).getEntradaFechaHora().format(formato)});
         }
 
     }
@@ -62,14 +57,14 @@ public class FrmListaVehiculo extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tipo Vehiculo", "No. Placa", "Entrada Fecha/Hora", "Salida"
+                "Tipo Vehiculo", "No. Placa", "Entrada Fecha/Hora"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -86,21 +81,22 @@ public class FrmListaVehiculo extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(293, 293, 293)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(293, 293, 293)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

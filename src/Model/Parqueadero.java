@@ -35,15 +35,6 @@ public class Parqueadero {
         return vehiculoExiste;
     }
 
-//    public static Vehiculo consultarSalida(String tipoVehiculo, String placa) {
-//        for (Vehiculo vehiculo : listaV) {
-//            if (vehiculo.getPlaca().equals(placa)) {
-//                vehiculo.setSalidaFechaHora(LocalDateTime.now());
-//                return vehiculo;
-//            }
-//        }
-//        return null;
-//    }
     public static Vehiculo consultarSalida(String placa) {
         for (Vehiculo vehiculo : listaV) {
             //Validamos si cualquier placa de un vehiculo existe 
@@ -54,6 +45,41 @@ public class Parqueadero {
         }
         return null;
     }
+
+        public static double Salida(LocalDateTime entradaFechaHora, LocalDateTime salidaFechaHora, long precio) {
+        //Corregir que solo se pueda escoger el vehiculo correcto y retirar que con su costo
+        //Segun el vehiculo que seleccione se debe pagar 
+        //Si registro carro, solo puedo sacar el carro
+        Duration duracion = Duration.between(entradaFechaHora, salidaFechaHora);
+        long hora = duracion.toHours();
+        long minuto = duracion.toMinutes() - (hora * 60);
+        long pagar = 0;
+        for (Vehiculo vehi : listaV) {
+            if (vehi.getTipoVehiculo().equals("Moto")) {
+                if (minuto > 30) {
+                    hora++;
+                    pagar = 1500 * hora;
+                } else if (hora == 0 && minuto <= 30) {
+                    pagar = 700;
+                }
+            } else if (vehi.getTipoVehiculo().equals("Carro")) {
+                if (minuto > 30) {
+                    hora++;
+                    pagar = 2500 * hora;
+                } else if (hora == 0 && minuto <= 30) {
+                    pagar = 1500;
+                }
+            }
+        }
+
+        return pagar;
+
+    }
+
+    public  ArrayList lista() {
+        return listaV;
+    }
+
 
     public static double calcularSalida(LocalDateTime entradaFechaHora, LocalDateTime salidaFechaHora) {
         //Corregir que solo se pueda escoger el vehiculo correcto y retirar que con su costo
@@ -85,8 +111,5 @@ public class Parqueadero {
 
     }
 
-    public static ArrayList lista() {
-        return listaV;
-    }
 
 }
