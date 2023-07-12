@@ -106,6 +106,7 @@ public class FrmParqueadero extends javax.swing.JFrame {
         cboTipoVehiculo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cboTipoVehiculo.setForeground(new java.awt.Color(23, 22, 22));
         cboTipoVehiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vehiculos", "Moto", "Carro" }));
+        cboTipoVehiculo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cboTipoVehiculo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cboTipoVehiculoItemStateChanged(evt);
